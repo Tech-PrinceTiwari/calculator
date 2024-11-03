@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Digital Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: 	#a2bbcf;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #0a8585;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        #calculator-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #calculator {
+            background-color: #1d4638;
+            width: 100%;
+            max-width: 280px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 1.2rem;
+            padding: 8px;
+            margin-bottom: 15px;
+            text-align: right;
+            border: none;
+            border-radius: 5px;
+            background-color: #67a6de;
+            color: #fff;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            font-size: 1.2rem;
+            background-color: #6b4226;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button:hover {
+            background-color: #814d2c;
+        }
+
+        .button:active {
+            background-color: #5a3320;
+        }
+
+        #enter {
+            background-color: #b01b1b;
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            #calculator {
+                scale: 1.5;
+            }
+            #display {
+                font-size: 1.2rem;
+            }
+            .button {
+                padding: 12px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator-container">
+        <h1>Digital Calculator</h1>
+        <div id="calculator">
+            <input type="text" id="display" readonly>
+            <div class="button-container">
+                <button class="button" onclick="clearDisplay()">C</button>
+                <button class="button" onclick="updateDisplay('1')">1</button>
+                <button class="button" onclick="updateDisplay('2')">2</button>
+                <button class="button" onclick="updateDisplay('3')">3</button>
+                <button class="button" onclick="updateDisplay('%')">%</button>
+                <button class="button" onclick="updateDisplay('4')">4</button>
+                <button class="button" onclick="updateDisplay('5')">5</button>
+                <button class="button" onclick="updateDisplay('6')">6</button>
+                <button class="button" onclick="updateDisplay('/')">/</button>
+                <button class="button" onclick="updateDisplay('7')">7</button>
+                <button class="button" onclick="updateDisplay('8')">8</button>
+                <button class="button" onclick="updateDisplay('9')">9</button>
+                <button class="button" onclick="updateDisplay('*')">*</button>
+                <button class="button" onclick="updateDisplay('-')">-</button>
+                <button class="button" onclick="updateDisplay('0')">0</button>
+                <button class="button" onclick="updateDisplay('00')">00</button>
+                <button class="button" onclick="updateDisplay('+')">+</button>
+                <button class="button" onclick="deleteLast()">⌫</button>
+                <button id="enter" class="button" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDisplay = '';
+
+        function updateDisplay(value) {
+            currentDisplay += value;
+            document.querySelector('#display').value = currentDisplay;
+        }
+
+        function clearDisplay() {
+            currentDisplay = '';
+            document.querySelector('#display').value = currentDisplay;
+        }
+
+        function deleteLast() {
+            currentDisplay = currentDisplay.slice(0, -1);
+            document.querySelector('#display').value = currentDisplay;
+        }
+
+        function calculate() {
+            try {
+                currentDisplay = eval(currentDisplay) || '';
+                document.querySelector('#display').value = currentDisplay;
+            } catch (error) {
+                document.querySelector('#display').value = 'Error';
+                currentDisplay = '';
+            }
+        }
+    </script>
+</body>
+</html>
